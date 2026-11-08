@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LG Imóveis · Teresina PI</title>
+<meta name="theme-color" content="#040405">
+<style>
+:root{--blue:#0a5ae6;--blue2:#0838a8;--navy:#071a45;--ink:#2c4377;--pink:#e6218a;--pink2:#ff3da0;--cyan:#2bb6ef;--bg:#f4f8ff}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:'Helvetica Neue',Arial,system-ui,sans-serif;background:var(--bg);color:var(--navy);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img,video{display:block}
+a{color:inherit;text-decoration:none}
+section{scroll-margin-top:0}
+
+/* ---------- TOPO FLUTUANTE (vidro branco) ---------- */
+.top{position:fixed;z-index:50;left:10px;right:10px;top:max(10px,env(safe-area-inset-top));height:62px;border-radius:22px;
+ background:rgba(255,255,255,.62);-webkit-backdrop-filter:blur(18px) saturate(1.6);backdrop-filter:blur(18px) saturate(1.6);
+ border:1px solid rgba(255,255,255,.9);box-shadow:0 10px 40px rgba(10,60,180,.18),inset 0 1px 0 #fff;display:flex;align-items:center;padding:0 6px;justify-content:space-between}
+.top a{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 0;border-radius:16px;position:relative;font-size:9.5px;font-weight:700;letter-spacing:.3px;color:#5b78b8;transition:.3s}
+.top svg{width:23px;height:23px;transition:.3s}
+.top .a{stroke:var(--blue)}.top .b{stroke:var(--pink)}
+.top a.on{color:var(--navy);background:linear-gradient(180deg,rgba(10,90,230,.12),rgba(230,33,138,.12))}
+.top a.on svg{transform:translateY(-1px) scale(1.12)}
+.top a.on:after{content:"";position:absolute;bottom:2px;width:16px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--blue),var(--pink))}
+
+/* ---------- HERO ---------- */
+#inicio{position:relative;height:100svh;min-height:720px;overflow:hidden;background:#fff}
+.mesh{position:absolute;inset:-10%;background:
+ radial-gradient(ellipse 55% 40% at 12% 95%,rgba(10,90,230,.55),transparent 70%),
+ radial-gradient(ellipse 60% 40% at 85% 8%,rgba(40,140,255,.40),transparent 70%),
+ radial-gradient(ellipse 45% 35% at 95% 100%,rgba(230,33,138,.45),transparent 70%),
+ radial-gradient(ellipse 35% 25% at 5% 40%,rgba(230,33,138,.18),transparent 70%),
+ linear-gradient(180deg,#fff,#e9f1ff);animation:drift 14s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate3d(3%,-2%,0) scale(1.08)}}
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(10,80,210,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(10,80,210,.09) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 75%);mask-image:linear-gradient(180deg,#000,transparent 75%);animation:gridmove 20s linear infinite}
+@keyframes gridmove{to{background-position:0 44px,44px 0}}
+.lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.lines path{fill:none;stroke-width:1.4;stroke-dasharray:6 10;animation:dash 6s linear infinite}
+.lines .p1{stroke:rgba(230,33,138,.55)}.lines .p2{stroke:rgba(10,90,230,.5);animation-duration:9s;animation-direction:reverse}.lines .p3{stroke:rgba(43,182,239,.55);animation-duration:12s}
+@keyframes dash{to{stroke-dashoffset:-160}}
+.orb{position:absolute;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--pink2),var(--pink));box-shadow:0 0 30px rgba(230,33,138,.6);offset-path:path('M20,520 C120,380 300,640 370,430 S250,120 60,230');animation:orbit 16s linear infinite;left:0;top:0}
+.orb2{width:12px;height:12px;background:var(--blue);box-shadow:0 0 22px rgba(10,90,230,.7);animation-duration:22s;animation-direction:reverse}
+@keyframes orbit{to{offset-distance:100%}}
+.hero-head{position:absolute;left:22px;right:22px;top:92px;z-index:5}
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.dots{display:flex;gap:4px;margin-bottom:13px}.dots i{width:8px;height:8px;border-radius:50%}
+.brand b{font-size:34px;letter-spacing:-1.5px;line-height:1}
+.brand span{font-size:9px;letter-spacing:3px;color:#3b5aa5;font-weight:600}
+h1{font-size:50px;line-height:.98;letter-spacing:-2.4px;font-weight:800}
+h1 .bl{color:var(--blue)}h1 .pk{color:var(--pink)}
+.stage{position:absolute;left:0;right:0;top:300px;bottom:150px;z-index:3}
+.slide{position:absolute;inset:0;opacity:0;pointer-events:none;transform:translateX(9%);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
+.slide.on{opacity:1;transform:none}
+.slide.out{opacity:0;transform:translateX(-9%)}
+.img{position:absolute;left:-4%;right:-4%;top:0;bottom:0;-webkit-mask-image:linear-gradient(180deg,#000 62%,transparent 98%);mask-image:linear-gradient(180deg,#000 62%,transparent 98%)}
+.img i{position:absolute;inset:0;background-size:cover;background-position:var(--pos,center 40%)}
+.slide.on .img{animation:kb 7s ease-out forwards}
+@keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.1)}}
+.scan{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--pink2),var(--cyan),transparent);box-shadow:0 0 18px var(--pink);opacity:0;top:0}
+@keyframes scan{0%{opacity:1;top:0}100%{opacity:0;top:100%}}
+.chip{position:absolute;z-index:6;padding:9px 13px;border-radius:14px;background:rgba(255,255,255,.78);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(10,90,230,.22);box-shadow:0 8px 28px rgba(10,60,180,.22);font-size:10px;letter-spacing:1.4px;color:#3b5aa5;font-weight:700;opacity:0;transform:scale(.6) translateY(8px)}
+.chip b{display:block;font-size:17px;letter-spacing:-.3px;color:var(--navy);margin-top:1px}
+.chip:before{content:"";position:absolute;width:9px;height:9px;border-radius:50%;background:var(--pink);left:-4px;top:-4px;box-shadow:0 0 0 4px rgba(230,33,138,.2)}
+.slide.on .chip{animation:chip 3.4s ease-in-out forwards;animation-delay:var(--d)}
+@keyframes chip{0%{opacity:0;transform:scale(.6) translateY(8px)}12%{opacity:1;transform:scale(1) translateY(0)}78%{opacity:1;transform:scale(1) translateY(-4px)}100%{opacity:0;transform:scale(.9) translateY(-10px)}}
+.hero-foot{position:absolute;left:22px;right:22px;bottom:24px;z-index:6}
+.tag{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.tag small{display:block;font-size:10px;letter-spacing:2.5px;color:#3b5aa5;font-weight:700}
+.tag strong{display:block;font-size:21px;letter-spacing:-.6px;margin-top:3px;line-height:1.1}
+.tag em{font-style:normal;background:var(--pink);color:#fff;font-weight:800;font-size:15px;padding:9px 15px;border-radius:30px;box-shadow:0 0 28px rgba(230,33,138,.5);white-space:nowrap}
+.prog{display:flex;gap:6px;margin-top:14px}
+.prog i{flex:1;height:3px;border-radius:3px;background:rgba(10,90,230,.2);overflow:hidden;position:relative}
+.prog i:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--blue),var(--pink));transform:scaleX(0);transform-origin:left}
+.prog i.done:after{transform:scaleX(1)}
+.prog i.on:after{animation:fill 6s linear forwards}
+@keyframes fill{to{transform:scaleX(1)}}
+.hint{position:absolute;right:22px;bottom:58px;z-index:6;font-size:9px;letter-spacing:4px;color:#3b5aa5;writing-mode:vertical-rl;opacity:.7}
+
+/* ---------- genérico ---------- */
+.sec{position:relative;padding:92px 22px 60px;overflow:hidden}
+.sec:before{content:"";position:absolute;inset:0;z-index:0;background:
+ radial-gradient(ellipse 60% 30% at 100% 0%,rgba(10,90,230,.22),transparent 70%),
+ radial-gradient(ellipse 50% 25% at 0% 100%,rgba(230,33,138,.16),transparent 70%)}
+.sec>*{position:relative;z-index:1}
+.eyebrow{font-size:10px;letter-spacing:4px;font-weight:800;color:var(--pink);margin-bottom:10px}
+h2{font-size:38px;line-height:1;letter-spacing:-1.8px;font-weight:800}
+h2 .bl{color:var(--blue)}h2 .pk{color:var(--pink)}
+.lead{margin-top:14px;font-size:15.5px;line-height:1.5;color:var(--ink)}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+
+/* sócios */
+#socios{background:linear-gradient(180deg,#e9f1ff,#fff)}
+.sfoto{position:relative;margin:26px -22px 0;height:410px}
+.sfoto:before{content:"";position:absolute;left:8%;right:8%;bottom:0;height:78%;border-radius:50% 50% 0 0;background:linear-gradient(180deg,var(--blue),var(--blue2));box-shadow:0 0 80px rgba(10,90,230,.45)}
+.sfoto:after{content:"";position:absolute;right:6%;top:18px;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--pink2),var(--pink));box-shadow:0 0 40px rgba(230,33,138,.55);animation:float 5s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(14px)}}
+.sfoto img{position:absolute;left:50%;bottom:0;height:100%;transform:translateX(-50%);z-index:2;filter:drop-shadow(0 20px 30px rgba(7,26,69,.35))}
+.pers{margin-top:-4px;display:grid;gap:10px}
+.pc{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:20px;background:rgba(255,255,255,.75);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(10,90,230,.15);box-shadow:0 10px 30px rgba(10,60,180,.12)}
+.pc .av{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--pink));color:#fff;font-weight:800;display:grid;place-items:center;font-size:17px;flex:none}
+.pc h4{font-size:17px;letter-spacing:-.4px}
+.pc p{font-size:12px;color:#5b78b8;margin-top:2px}
+.pc .wa{margin-left:auto;flex:none;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--blue),#2b8cff);display:grid;place-items:center;box-shadow:0 6px 20px rgba(10,90,230,.4)}
+.pc .wa svg{width:22px;height:22px;fill:#fff}
+.creci{margin-top:18px;text-align:center;font-size:11px;letter-spacing:2px;color:#5b78b8;font-weight:700}
+
+/* cards de imóveis */
+.group-head{padding:96px 22px 10px;position:relative;background:#fff}
+.group-head:after{content:"";position:absolute;left:22px;bottom:-1px;width:70px;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--blue),var(--pink))}
+.card{position:relative;margin:18px 14px 0;border-radius:30px;overflow:hidden;background:#fff;box-shadow:0 18px 50px rgba(10,60,180,.18);border:1px solid rgba(10,90,230,.1)}
+.gal{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;position:relative}
+.gal::-webkit-scrollbar{display:none}
+.gal img{flex:none;width:100%;height:340px;object-fit:cover;scroll-snap-align:center}
+.cnt{position:absolute;top:14px;right:14px;z-index:3;background:rgba(255,255,255,.75);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-radius:20px;padding:5px 11px;font-size:11px;font-weight:800;color:var(--navy)}
+.badge{position:absolute;top:14px;left:14px;z-index:3;background:var(--pink);color:#fff;border-radius:20px;padding:6px 12px;font-size:10px;font-weight:800;letter-spacing:1.6px;box-shadow:0 0 22px rgba(230,33,138,.5)}
+.body{padding:20px 20px 22px}
+.body h3{font-size:25px;letter-spacing:-1px;line-height:1.05}
+.loc{margin-top:6px;font-size:12.5px;color:#5b78b8;font-weight:600}
+.specs{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+.specs span{font-size:12px;font-weight:700;padding:7px 11px;border-radius:30px;background:rgba(10,90,230,.08);color:var(--blue2)}
+.specs span.k{background:rgba(230,33,138,.1);color:#b3126a}
+.desc{margin-top:13px;font-size:14px;line-height:1.5;color:var(--ink)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:18px}
+.price small{display:block;font-size:9.5px;letter-spacing:2.4px;color:#5b78b8;font-weight:700}
+.price{white-space:nowrap}.price strong{font-size:25px;letter-spacing:-1px;background:linear-gradient(90deg,var(--blue),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 16px;white-space:nowrap;border-radius:30px;background:linear-gradient(135deg,var(--blue),#2b8cff);color:#fff;font-weight:800;font-size:14px;box-shadow:0 10px 30px rgba(10,90,230,.4)}
+.btn svg{width:18px;height:18px;fill:#fff}
+
+/* vídeo guiado pela rolagem */
+.scrub{position:relative;height:260svh;margin-top:18px}
+.pin{position:sticky;top:0;height:100svh;overflow:hidden;background:#06122e}
+.pin video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pin:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,18,46,.55),transparent 28%,transparent 45%,rgba(6,18,46,.92)),radial-gradient(ellipse 60% 30% at 100% 100%,rgba(230,33,138,.45),transparent 70%),radial-gradient(ellipse 60% 35% at 0% 100%,rgba(10,90,230,.5),transparent 70%)}
+.pin .info{position:absolute;z-index:3;left:22px;right:22px;bottom:34px;color:#fff;transition:opacity .4s,transform .4s}
+.pin .info .eyebrow{color:var(--pink2)}
+.pin .info h3{font-size:34px;letter-spacing:-1.5px;line-height:1}
+.pin .info .specs span{background:rgba(255,255,255,.16);color:#fff;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.pin .info .specs span.k{background:rgba(230,33,138,.55)}
+.pin .info .price small{color:#bcd0f6}
+.pin .info .price strong{background:none;color:#fff;-webkit-text-fill-color:#fff}
+.pin .info .btn{background:#fff;color:var(--blue2);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.pin .info .btn svg{fill:var(--blue2)}
+.bar{position:absolute;z-index:4;left:22px;right:22px;top:92px;height:3px;border-radius:3px;background:rgba(255,255,255,.25)}
+.bar i{display:block;height:100%;width:0;border-radius:3px;background:linear-gradient(90deg,var(--cyan),var(--pink2))}
+.pin .t{position:absolute;z-index:4;left:22px;top:104px;font-size:10px;letter-spacing:3px;color:#fff;font-weight:800;opacity:.85}
+
+/* verana + contato */
+.lotes-mini{display:grid;gap:12px;margin-top:20px}
+.verana img{width:100%;border-radius:20px}
+#contato{background:linear-gradient(180deg,#fff,#dfeaff);text-align:center;padding-bottom:120px}
+#contato .btn{margin-top:12px;width:100%;justify-content:center;font-size:15px}
+#contato .btn.pk{background:linear-gradient(135deg,var(--pink),var(--pink2));box-shadow:0 10px 30px rgba(230,33,138,.4)}
+.foot{margin-top:26px;font-size:11px;color:#5b78b8;line-height:1.7;letter-spacing:.4px}
+.foot b{color:var(--navy)}
+
+/* ---------- MOVIMENTO EXTRA ---------- */
+.mq{position:relative;overflow:hidden;white-space:nowrap;background:linear-gradient(90deg,var(--blue2),var(--blue) 55%,var(--pink));color:#fff;padding:13px 0;transform:rotate(-1.5deg);margin:34px -20px 10px;box-shadow:0 10px 30px rgba(10,60,180,.3);z-index:2}
+.mq div{display:inline-block;animation:mq 22s linear infinite;font-weight:800;font-size:14px;letter-spacing:5px}
+.mq.r div{animation-direction:reverse;animation-duration:28s}
+.mq span{margin:0 18px;color:rgba(255,255,255,.55)}
+@keyframes mq{to{transform:translateX(-50%)}}
+.sec:before,.group-head:before{animation:drift 12s ease-in-out infinite alternate}
+.group-head:before{content:"";position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 60% 70% at 100% 20%,rgba(10,90,230,.16),transparent 70%),radial-gradient(ellipse 50% 60% at 0% 100%,rgba(230,33,138,.13),transparent 70%)}
+.group-head>*{position:relative;z-index:1}
+.w{display:inline-block;opacity:0;transform:translateY(.7em) rotate(3deg)}
+.rv.in .w,.in .w{animation:wd .8s cubic-bezier(.2,.9,.2,1) forwards;animation-delay:calc(var(--i)*.09s)}
+@keyframes wd{to{opacity:1;transform:none}}
+.btn{position:relative;overflow:hidden;animation:pulse 2.6s ease-in-out infinite}
+.btn:after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:shine 3.2s ease-in-out infinite}
+@keyframes shine{0%,55%{left:-60%}100%{left:140%}}
+@keyframes pulse{50%{transform:scale(1.035)}}
+.card{transform-origin:50% 100%}
+.card.rv{transform:translateY(50px) scale(.94) rotate(-1deg)}
+.card.rv.in{transform:none}
+.gal img{animation:zoomIn 9s ease-in-out infinite alternate}
+@keyframes zoomIn{from{transform:scale(1)}to{transform:scale(1.07)}}
+.gal{overflow-y:hidden}
+.dotsg{position:absolute;left:0;right:0;top:310px;display:flex;justify-content:center;gap:6px;z-index:3;pointer-events:none}
+.dotsg i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.55);transition:.35s}
+.dotsg i.on{width:22px;border-radius:7px;background:#fff}
+.chipfloat{animation:cf 4s ease-in-out infinite}
+@keyframes cf{50%{transform:translateY(-8px)}}
+.ind{position:absolute;top:6px;bottom:6px;left:0;width:50px;border-radius:16px;background:linear-gradient(180deg,rgba(10,90,230,.16),rgba(230,33,138,.16));transition:transform .5s cubic-bezier(.3,1.3,.5,1),width .5s;z-index:0}
+.top a{z-index:1}.top a.on{background:none}
+.hero-head{will-change:transform,opacity}
+.stage{will-change:transform}
+.pers .pc{transition:transform .3s}
+.pers .pc:active{transform:scale(.97)}
+.pers .pc .wa{animation:pulse 2.4s ease-in-out infinite}
+.sfoto img{will-change:transform}
+.lines .p1,.lines .p2,.lines .p3{filter:drop-shadow(0 0 4px rgba(230,33,138,.35))}
+
+/* ---------- LOGO LGI ---------- */
+.lgm{position:relative;aspect-ratio:.8151;flex:none;--lgc:var(--navy);--d1:var(--pink);--d2:var(--blue)}
+.lgm .b{position:absolute;inset:0;background:var(--lgc);-webkit-mask:url(lgbody.png) 0 0/100% 100% no-repeat;mask:url(lgbody.png) 0 0/100% 100% no-repeat}
+.lgm i{position:absolute;top:0;width:18.4%;aspect-ratio:1;border-radius:50%}
+.lgm .d1{left:42.7%;background:var(--d1);box-shadow:0 0 18px var(--d1)}
+.lgm .d2{left:69.1%;background:var(--d2);box-shadow:0 0 18px var(--d2)}
+.brand .lgm{width:34px}
+.brand .lgm .d1,.brand .lgm .d2{animation:dotb 2.4s ease-in-out infinite}
+.brand .lgm .d2{animation-delay:.4s}
+@keyframes dotb{50%{transform:translateY(-3px)}}
+/* abertura: a chave */
+#splash{position:fixed;inset:0;z-index:200;pointer-events:none;animation:sHide .01s linear 4.15s forwards}
+@keyframes sHide{to{visibility:hidden}}
+#splash .sd{position:absolute;top:0;bottom:0;width:50.2%;overflow:hidden;background:radial-gradient(ellipse 70% 45% at 12% 100%,rgba(10,90,230,.45),transparent 70%),radial-gradient(ellipse 60% 40% at 92% 96%,rgba(230,33,138,.4),transparent 70%),radial-gradient(ellipse 60% 35% at 85% 0,rgba(40,140,255,.25),transparent 70%),linear-gradient(180deg,#fff,#e9f1ff);background-size:199% 100%;pointer-events:auto}
+#splash .sd.l{left:0;background-position:0 0;border-right:1px solid rgba(10,90,230,.22);animation:doorL .95s cubic-bezier(.7,0,.2,1) 3.15s forwards}
+#splash .sd.r{right:0;background-position:100% 0;border-left:1px solid rgba(10,90,230,.22);animation:doorR .95s cubic-bezier(.7,0,.2,1) 3.15s forwards}
+@keyframes doorL{to{transform:translateX(-102%)}}@keyframes doorR{to{transform:translateX(102%)}}
+#splash .sd:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(10,80,210,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(10,80,210,.08) 1px,transparent 1px);background-size:44px 44px}
+#splash .sd .hd{opacity:0;animation:hdIn .4s ease 2.7s forwards;position:absolute;top:44%;width:5px;height:150px;border-radius:5px;background:linear-gradient(180deg,#2b8cff,#0838a8)}
+#splash .sd.l .hd{right:14px}#splash .sd.r .hd{left:14px}
+#splash .sd .sheen{position:absolute;top:0;bottom:0;width:70px;left:-30%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent);transform:skewX(-14deg);animation:sheen 1.4s ease 2.7s both}
+@keyframes sheen{to{left:130%}}@keyframes hdIn{to{opacity:1}}
+#splash .stg{position:absolute;left:50%;top:50%;width:0;height:0;animation:stgOut .45s ease 2.95s forwards}
+@keyframes stgOut{to{opacity:0;transform:scale(1.35)}}
+#splash .lk{position:absolute;left:-75px;top:-75px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#e9f1ff);border:1.5px solid rgba(10,90,230,.28);box-shadow:0 14px 40px rgba(10,60,180,.28),inset 0 0 0 7px rgba(10,90,230,.08);animation:lkIn .8s cubic-bezier(.2,1.2,.3,1) .1s both}
+@keyframes lkIn{from{transform:scale(.2);opacity:0}to{transform:none;opacity:1}}
+#splash .lk:before{content:"";position:absolute;inset:-14px;border-radius:50%;border:1.5px dashed rgba(10,90,230,.35);animation:spin 9s linear infinite}
+#splash .lk:after{content:"";position:absolute;inset:-34px;border-radius:50%;border:1.5px dashed rgba(230,33,138,.3);animation:spin 14s linear infinite reverse}
+#splash .kh{position:absolute;left:50%;top:50%;width:34px;height:60px;margin:-30px 0 0 -17px;animation:khRot .5s cubic-bezier(.5,0,.2,1) 2.4s forwards}
+@keyframes khRot{to{transform:rotate(90deg)}}
+#splash .kg{position:absolute;left:-30px;top:-380px;width:60px;height:250px;transform-origin:30px 30px;opacity:0;animation:kdrop 1.8s cubic-bezier(.4,.1,.3,1) .25s forwards}
+@keyframes kdrop{0%{transform:translateY(-520px) rotate(16deg);opacity:0}10%{opacity:1}30%{transform:translateY(0) rotate(-12deg)}45%{transform:rotate(8deg)}58%{transform:rotate(-4deg)}68%{transform:rotate(0)}92%{opacity:1}100%{transform:translateY(125px) scale(.6);opacity:0}}
+#splash .kg svg{display:block;filter:drop-shadow(0 10px 14px rgba(10,60,180,.3))}
+#splash .tg{position:absolute;width:74px;height:96px;border-radius:18px;background:#fff;border:1.5px solid rgba(10,90,230,.28);box-shadow:0 16px 36px rgba(10,60,180,.3);display:grid;place-items:center}
+#splash .tg .lgm{width:36px}
+#splash .kg .tg{left:-96px;top:70px;transform:rotate(6deg)}
+#splash .kg .st{position:absolute;left:12px;top:30px;width:2px;height:62px;background:rgba(10,90,230,.3);transform:rotate(60deg);transform-origin:0 0}
+#splash .fb{position:absolute;left:-60px;top:-48px;width:120px;opacity:0;animation:fbIn 1s cubic-bezier(.3,1.2,.4,1) 1.95s forwards}
+@keyframes fbIn{0%{opacity:0;transform:scale(.3) rotate(0)}30%{opacity:1;transform:scale(1) rotate(0)}38%{transform:scale(1) rotate(0)}100%{opacity:1;transform:scale(1) rotate(58deg)}}
+#splash .fb svg{display:block;overflow:visible;filter:drop-shadow(0 8px 14px rgba(10,60,180,.35))}
+#splash .tg2{left:-37px;top:140px;opacity:0;transform-origin:37px -50px;animation:tgIn 1.9s ease 2.1s forwards,tgLit .6s ease 2.85s forwards}
+@keyframes tgIn{0%{opacity:0;transform:rotate(-30deg)}20%{opacity:1}45%{transform:rotate(12deg)}70%{transform:rotate(-6deg)}100%{opacity:1;transform:rotate(0)}}
+@keyframes tgLit{to{box-shadow:0 0 44px #e6218a,0 16px 36px rgba(10,60,180,.3)}}
+#splash .glow{position:absolute;left:-190px;top:-190px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(230,33,138,.55),rgba(10,90,230,.35) 40%,transparent 70%);opacity:0;animation:glw 1.2s ease 2.3s forwards}
+@keyframes glw{0%{opacity:0;transform:scale(.4)}60%{opacity:1}100%{opacity:.9;transform:scale(1.25)}}
+#splash .rp{position:absolute;border-radius:50%;border:2px solid #0a5ae6;left:-100px;top:-100px;width:200px;height:200px;opacity:0;animation:rp 1s ease-out 2.75s forwards}
+#splash .rp.b{border-color:#e6218a;animation-delay:2.95s}
+@keyframes rp{0%{opacity:.9;transform:scale(.5)}100%{opacity:0;transform:scale(2.6)}}
+#splash .cp{position:absolute;left:0;right:0;bottom:46px;text-align:center;font-size:11px;letter-spacing:9px;font-weight:700;color:#3b5aa5;opacity:0;animation:cpIn 1s ease .6s forwards,cpOut .3s ease 2.9s forwards}
+@keyframes cpIn{to{opacity:1}}@keyframes cpOut{to{opacity:0}}
+#splash .fl{position:absolute;left:-300px;top:-300px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,#fff 10%,rgba(255,255,255,.5) 35%,transparent 70%);opacity:0;animation:fls .55s ease 2.75s both}
+@keyframes fls{0%{opacity:0}35%{opacity:1}100%{opacity:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.lgm .d1,.lgm .d2{will-change:transform}
+/* entradas do hero depois da abertura */
+.brand,h1,.hero-foot{animation:heroIn 1s cubic-bezier(.2,.8,.2,1) 3.25s both}
+h1{animation-delay:3.4s}.hero-foot{animation-delay:3.65s}
+@keyframes heroIn{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.top{animation:topIn .9s cubic-bezier(.2,.9,.2,1) 3.7s both}
+.sfoto .sh,.sfoto .gs{display:none}
+.sfoto img.main{filter:none}
+.sfoto:before{bottom:34px}
+/* vídeos tocando sozinhos */
+.scrub{position:relative;height:100svh;min-height:640px;margin-top:18px;overflow:hidden}
+.pin{position:absolute;inset:0;height:auto;background:#06122e center/cover no-repeat}
+.pin video{animation:kbv 16s ease-in-out infinite alternate;transform-origin:50% 60%}
+@keyframes kbv{from{transform:scale(1)}to{transform:scale(1.1)}}
+.pin .info{opacity:0;transform:translateY(30px)}
+.scrub.live .pin .info{opacity:1;transform:none;transition:opacity .9s ease .2s,transform .9s cubic-bezier(.2,.8,.2,1) .2s}
+.scrub .bar i{transition:none}
+.pin .t:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--pink2);margin-right:8px;box-shadow:0 0 10px var(--pink2);animation:blink 1.4s ease-in-out infinite}
+@keyframes blink{50%{opacity:.25}}
+.pin .fo{position:absolute;z-index:2;border-radius:50%;pointer-events:none;animation:fl 7s ease-in-out infinite}
+.pin .fo.a{width:14px;height:14px;right:18%;top:28%;background:var(--pink2);box-shadow:0 0 24px var(--pink2)}
+.pin .fo.b{width:9px;height:9px;left:14%;top:42%;background:var(--cyan);box-shadow:0 0 20px var(--cyan);animation-delay:-3s}
+@keyframes fl{50%{transform:translate(18px,-34px)}}
+/* mais movimento */
+.group-head:after{width:0;transition:width 1.1s cubic-bezier(.2,.8,.2,1) .3s}
+.group-head.in:after{width:70px}
+.sec:after{content:"";position:absolute;right:-30px;top:30%;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,rgba(230,33,138,.22),transparent 70%);animation:float 6s ease-in-out infinite;pointer-events:none}
+.price strong{background-size:200% 100%;animation:gshift 4s ease-in-out infinite alternate}
+@keyframes gshift{to{background-position:100% 0}}
+.badge{animation:pulse 2.4s ease-in-out infinite}
+.eyebrow{position:relative;display:inline-block}
+.eyebrow:after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:linear-gradient(90deg,currentColor,transparent);transform:scaleX(0);transform-origin:left;transition:transform 1s ease .4s}
+.in .eyebrow:after,.eyebrow.in:after,.rv.in.eyebrow:after{transform:scaleX(1)}
+.top a svg{transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
+.top a:active svg{transform:scale(.8)}
+.mq.r div{animation-duration:20s}
+</style>
+<style id="pt">:root{--blue:#a3acb8;--blue2:#4f5661;--navy:#f1f3f6;--ink:#aab2bd;--pink:#eef1f5;--pink2:#fff;--cyan:#7d8691;--bg:#040405}
+body{background:#040405}
+.top{background:rgba(16,17,20,.58);border:1px solid rgba(255,255,255,.16);box-shadow:0 10px 40px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.14)}
+.top a{color:#8b93a0}.top .a{stroke:#8d96a3}.top .b{stroke:#f1f3f6}
+.top a.on{color:#fff;background:linear-gradient(180deg,rgba(200,208,220,.18),rgba(255,255,255,.06))}
+.top a.on:after{background:linear-gradient(90deg,#7d8691,#f1f3f6)}
+#inicio{background:#040405}
+.mesh{background:
+ radial-gradient(ellipse 55% 40% at 12% 95%,rgba(150,160,175,.38),transparent 70%),
+ radial-gradient(ellipse 60% 40% at 85% 8%,rgba(210,218,230,.22),transparent 70%),
+ radial-gradient(ellipse 45% 35% at 95% 100%,rgba(235,240,247,.30),transparent 70%),
+ radial-gradient(ellipse 35% 25% at 5% 40%,rgba(120,130,145,.2),transparent 70%),
+ linear-gradient(180deg,#050506,#0c0d10)}
+.grid{background-image:linear-gradient(rgba(200,210,225,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(200,210,225,.07) 1px,transparent 1px)}
+.lines .p1{stroke:rgba(240,243,248,.6)}.lines .p2{stroke:rgba(150,160,175,.6)}.lines .p3{stroke:rgba(200,208,220,.5)}
+.orb{background:linear-gradient(135deg,#fff,#c9d0da);box-shadow:0 0 30px rgba(235,240,247,.6)}
+.orb2{background:#7d8691;box-shadow:0 0 22px rgba(125,134,145,.8)}
+.brand span{color:#8b93a0}
+h1 .bl{background:linear-gradient(180deg,#b9c1cc,#6f7884);-webkit-background-clip:text;background-clip:text;color:transparent}
+h1 .pk,h2 .pk{background:linear-gradient(180deg,#fff,#c3cad4);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2 .bl{background:linear-gradient(180deg,#b9c1cc,#6f7884);-webkit-background-clip:text;background-clip:text;color:transparent}
+.chip{background:rgba(18,19,22,.7);border:1px solid rgba(220,228,240,.28);box-shadow:0 8px 28px rgba(0,0,0,.5);color:#9ba3af}
+.chip b{color:#fff}.chip:before{background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.18)}
+.tag small{color:#8b93a0}
+.tag em{background:linear-gradient(135deg,#fff,#b8c0cb);color:#07070a;box-shadow:0 0 28px rgba(235,240,247,.4)}
+.prog i{background:rgba(200,208,220,.2)}.prog i:after{background:linear-gradient(90deg,#7d8691,#fff)}
+.hint{color:#8b93a0}
+.img{-webkit-mask-image:linear-gradient(180deg,#000 62%,transparent 98%)}
+.scan{display:none}
+.sec:before{background:radial-gradient(ellipse 60% 30% at 100% 0%,rgba(200,208,220,.14),transparent 70%),radial-gradient(ellipse 50% 25% at 0% 100%,rgba(150,160,175,.14),transparent 70%)}
+.eyebrow{color:#c3cad4}
+#socios{background:linear-gradient(180deg,#0b0c0f,#040405)}
+.sfoto:before{background:linear-gradient(180deg,#e3e7ed,#59616c);box-shadow:0 0 80px rgba(200,208,220,.3)}
+.sfoto:after{background:linear-gradient(135deg,#fff,#aab2bd);box-shadow:0 0 40px rgba(235,240,247,.5)}
+.sfoto img{filter:drop-shadow(0 20px 30px rgba(0,0,0,.6))}
+.pc{background:rgba(22,23,27,.75);border:1px solid rgba(220,228,240,.16);box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.pc .av{background:linear-gradient(135deg,#7d8691,#eef1f5);color:#07070a}
+.pc p,.creci{color:#8b93a0}
+.pc .wa{background:linear-gradient(135deg,#aab2bd,#f1f3f6);box-shadow:0 6px 20px rgba(220,228,240,.25)}
+.pc .wa svg{fill:#07070a}
+</style>
+<style id="pt2">.group-head{background:#040405}
+.group-head:before{background:radial-gradient(ellipse 60% 70% at 100% 20%,rgba(200,208,220,.14),transparent 70%),radial-gradient(ellipse 50% 60% at 0% 100%,rgba(150,160,175,.12),transparent 70%)}
+.group-head:after{background:linear-gradient(90deg,#7d8691,#fff)}
+.card{background:#0e0f12;border:1px solid rgba(220,228,240,.14);box-shadow:0 18px 50px rgba(0,0,0,.6)}
+.cnt{background:rgba(14,15,18,.7);color:#fff}
+.badge{background:linear-gradient(135deg,#fff,#b8c0cb);color:#07070a;box-shadow:0 0 22px rgba(235,240,247,.35)}
+.loc,.price small,.foot{color:#8b93a0}
+.specs span{background:rgba(200,208,220,.1);color:#c3cad4}
+.specs span.k{background:rgba(255,255,255,.92);color:#07070a}
+.price strong{background:linear-gradient(90deg,#9aa3af,#fff);-webkit-background-clip:text;background-clip:text}
+.btn{background:linear-gradient(135deg,#aab2bd,#f1f3f6);color:#07070a;box-shadow:0 10px 30px rgba(220,228,240,.22)}
+.btn svg{fill:#07070a}
+.pin{background:#040405}
+.pin:after{background:linear-gradient(180deg,rgba(4,4,5,.6),transparent 28%,transparent 45%,rgba(4,4,5,.94)),radial-gradient(ellipse 60% 30% at 100% 100%,rgba(235,240,247,.3),transparent 70%),radial-gradient(ellipse 60% 35% at 0% 100%,rgba(150,160,175,.35),transparent 70%)}
+.pin .info .specs span.k{background:rgba(255,255,255,.9);color:#07070a}
+.pin .info .price small{color:#aab2bd}
+.pin .info .btn{background:#fff;color:#07070a}.pin .info .btn svg{fill:#07070a}
+.bar i{background:linear-gradient(90deg,#7d8691,#fff)}
+#contato{background:linear-gradient(180deg,#040405,#101215)}
+#contato .btn.pk{background:linear-gradient(135deg,#fff,#aab2bd);color:#07070a;box-shadow:0 10px 30px rgba(235,240,247,.25)}
+.mq{background:linear-gradient(90deg,#3a3f47,#8d96a3 50%,#e9edf2);color:#07070a;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.mq span{color:rgba(0,0,0,.45)}
+.ind{background:linear-gradient(180deg,rgba(200,208,220,.2),rgba(255,255,255,.07))}
+.lines .p1,.lines .p2,.lines .p3{filter:drop-shadow(0 0 4px rgba(235,240,247,.3))}
+.h3,.body h3{color:#fff}
+</style>
+<style id="pt3">
+.lgm{--lgc:#f1f3f6;--d1:#f4f6f9;--d2:#7d8691}
+.lgm .d1{box-shadow:0 0 18px rgba(255,255,255,.6)}.lgm .d2{box-shadow:0 0 18px rgba(125,134,145,.8)}
+#splash{background:radial-gradient(ellipse 70% 45% at 15% 100%,rgba(150,160,175,.4),transparent 70%),radial-gradient(ellipse 60% 40% at 90% 95%,rgba(235,240,247,.3),transparent 70%),radial-gradient(ellipse 60% 35% at 85% 0%,rgba(200,208,220,.2),transparent 70%),linear-gradient(180deg,#050506,#0c0d10)}
+#splash .sg{background-image:linear-gradient(rgba(200,210,225,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(200,210,225,.07) 1px,transparent 1px)}
+#splash .ring{border-color:rgba(200,208,220,.4)}#splash .ring.r2{border-color:rgba(125,134,145,.5)}
+#splash .tx{color:#9aa3af}#splash .ln{background:rgba(200,208,220,.2)}#splash .ln:after{background:linear-gradient(90deg,#7d8691,#fff)}
+.pin .t:before,.pin .fo.a{background:#fff;box-shadow:0 0 14px #fff}.pin .fo.b{background:#7d8691;box-shadow:0 0 20px #7d8691}
+.sec:after{background:radial-gradient(circle,rgba(220,228,240,.16),transparent 70%)}
+</style>
+<style>
+/* sombra projetada dos sócios */
+.sfoto .sh{position:absolute;left:50%;bottom:0;height:100%;z-index:1;transform:translateX(calc(-50% - 10px)) skewX(-16deg) scaleY(.17);transform-origin:50% 97.6%;filter:brightness(0) blur(5px);opacity:.42;pointer-events:none}
+.sfoto .gs{position:absolute;left:50%;bottom:7px;width:74%;height:26px;margin-left:-37%;z-index:1;border-radius:50%;background:radial-gradient(ellipse at 50% 50%,rgba(0,0,0,.55),rgba(0,0,0,.2) 55%,transparent 72%);filter:blur(3px);pointer-events:none}
+.sfoto img.main{filter:drop-shadow(0 6px 10px rgba(0,0,0,.28))}
+</style><style id="pt4">
+#splash{background:none}
+#splash .sd{background:radial-gradient(ellipse 70% 45% at 12% 100%,rgba(150,160,175,.4),transparent 70%),radial-gradient(ellipse 60% 40% at 92% 96%,rgba(235,240,247,.3),transparent 70%),linear-gradient(180deg,#050506,#0c0d10);background-size:199% 100%}
+#splash .sd.l{background-position:0 0;border-right:1px solid rgba(220,228,240,.3)}#splash .sd.r{background-position:100% 0;border-left:1px solid rgba(220,228,240,.3)}
+#splash .sd:before{background-image:linear-gradient(rgba(200,210,225,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(200,210,225,.07) 1px,transparent 1px)}
+#splash .sd .hd{background:linear-gradient(180deg,#f4f6f9,#7d8691)}
+#splash .sd .sheen{background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent)}
+#splash{--key1:#f4f6f9;--key2:#7d8691;--kbg:#0a0a0c;--kh:#000}
+#splash .lk{background:radial-gradient(circle at 35% 30%,#2a2c32,#0a0a0c);border-color:rgba(220,228,240,.3);box-shadow:0 14px 40px rgba(0,0,0,.7),inset 0 0 0 7px rgba(255,255,255,.05)}
+#splash .lk:before{border-color:rgba(200,208,220,.35)}#splash .lk:after{border-color:rgba(125,134,145,.4)}
+#splash .kh{--kh:#fff}
+#splash .tg{background:#15161a;border-color:rgba(220,228,240,.3);box-shadow:0 16px 36px rgba(0,0,0,.6)}
+#splash .kg .st{background:rgba(200,208,220,.4)}
+#splash .glow{background:radial-gradient(circle,rgba(255,255,255,.6),rgba(150,160,175,.3) 40%,transparent 70%)}
+#splash .rp{border-color:#fff}#splash .rp.b{border-color:#7d8691}
+#splash .cp{color:#9aa3af}
+@keyframes tgLit{to{box-shadow:0 0 44px #fff,0 16px 36px rgba(0,0,0,.6)}}
+#splash .kg svg,#splash .fb svg{filter:drop-shadow(0 8px 14px rgba(0,0,0,.6))}
+</style></head>
+<body>
+<div id="splash"><div class="sd l"><div class="sheen"></div><div class="hd"></div></div><div class="sd r"><div class="sheen"></div><div class="hd"></div></div><div class="stg"><div class="glow"></div><div class="lk"><div class="kh"><svg viewBox="0 0 34 60" width="34"><path d="M17 2a13 13 0 00-6 24.5L7 58h20l-4-31.5A13 13 0 0017 2z" fill="var(--kh,#071a45)"/></svg></div></div><div class="kg"><svg viewBox="0 0 60 250" width="60" height="250"><defs><linearGradient id="kgr" x1="0" x2="1"><stop offset="0" stop-color="var(--key1,#2b8cff)"/><stop offset="1" stop-color="var(--key2,#0838a8)"/></linearGradient></defs><circle cx="30" cy="30" r="27" fill="url(#kgr)"/><circle cx="30" cy="30" r="12" fill="var(--kbg,#fff)"/><rect x="24" y="54" width="12" height="190" rx="4" fill="url(#kgr)"/><path d="M36 196h14v10H36zM36 218h10v10H36z" fill="url(#kgr)"/><rect x="26" y="58" width="3" height="170" fill="#fff" opacity=".35"/></svg><div class="st"></div><div class="tg"><div class="lgm"><span class="b"></span><i class="d1"></i><i class="d2"></i></div></div></div><div class="fb"><svg viewBox="0 0 120 150" width="120" style="overflow:visible"><defs><linearGradient id="kgr2" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="var(--key1,#2b8cff)"/><stop offset="1" stop-color="var(--key2,#0838a8)"/></linearGradient></defs><rect x="52" y="86" width="16" height="30" rx="4" fill="url(#kgr2)"/><circle cx="60" cy="48" r="46" fill="url(#kgr2)"/><circle cx="60" cy="48" r="20" fill="var(--kbg,#fff)"/><circle cx="60" cy="48" r="46" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="2"/></svg></div><div class="tg tg2"><div class="lgm"><span class="b"></span><i class="d1"></i><i class="d2"></i></div></div><div class="rp"></div><div class="rp b"></div><div class="fl"></div></div></div>
+
+<!-- TOPO FLUTUANTE -->
+<nav class="top" id="top"><div class="ind" id="ind"></div>
+ <a href="#inicio" data-t="inicio" class="on"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path class="a" d="M3 11l9-7.5L21 11"/><path class="b" d="M5.5 9.5V20h13V9.5M10 20v-5.5h4V20"/></svg>Início</a>
+ <a href="#socios" data-t="socios"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle class="a" cx="9" cy="8" r="3.2"/><path class="a" d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><circle class="b" cx="17" cy="9" r="2.4"/><path class="b" d="M16.5 14.2c2.8-.2 4.8 1.8 4.8 4.8"/></svg>Sócios</a>
+ <a href="#casas" data-t="casas"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path class="b" d="M4 10l8-6 8 6"/><path class="a" d="M6 9v11h12V9"/><path class="b" d="M10 20v-6h4v6"/></svg>Casas</a>
+ <a href="#aptos" data-t="aptos"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect class="a" x="5" y="3" width="14" height="18" rx="1.5"/><path class="b" d="M9 7.5h2M13 7.5h2M9 11.5h2M13 11.5h2M10.5 21v-4h3v4"/></svg>Aptos</a>
+ <a href="#lotes" data-t="lotes"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path class="a" d="M12 21s7-6 7-11a7 7 0 10-14 0c0 5 7 11 7 11z"/><circle class="b" cx="12" cy="10" r="2.5"/></svg>Lotes</a>
+ <a href="#contato" data-t="contato"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path class="a" d="M4 20l1.2-4A8 8 0 1112 20a8 8 0 01-3.8-1z"/><path class="b" d="M9 9.5c.3 2.2 2.3 4.2 4.5 4.5l1.3-1.3-2-1-.8.8c-.8-.4-1.6-1.2-2-2l.8-.8-1-2z"/></svg>Contato</a>
+</nav>
+
+<!-- ABERTURA -->
+<section id="inicio" data-nav="inicio">
+ <div class="mesh"></div><div class="grid"></div>
+ <svg class="lines" viewBox="0 0 390 844" preserveAspectRatio="none"><path class="p1" d="M-10 640 C100 520 220 740 400 560"/><path class="p2" d="M-10 220 C120 300 200 120 400 250"/><path class="p3" d="M-10 460 C140 420 260 540 400 400"/></svg>
+ <div class="orb"></div><div class="orb orb2"></div>
+ <div class="hero-head">
+  <div class="brand"><div class="lgm"><span class="b"></span><i class="d1"></i><i class="d2"></i></div><span>IMÓVEIS · TERESINA PI</span></div>
+  <h1>Sua <span class="bl">casa</span><br>está <span class="pk">aqui.</span></h1>
+ </div>
+ <div class="stage" id="stage"></div>
+ <div class="hero-foot">
+  <div class="tag"><div><small id="tl">DUPLEX · CONDOMÍNIO FECHADO</small><strong id="tn">La Vie Suíça</strong></div><em id="tp">R$ 800 mil</em></div>
+  <div class="prog" id="prog"></div>
+ </div>
+ <div class="hint">ROLE ↓</div>
+</section>
+
+<div class="mq "><div>CASAS<span>✦</span>APARTAMENTOS<span>✦</span>LOTES<span>✦</span>LG IMÓVEIS<span>✦</span>CASAS<span>✦</span>APARTAMENTOS<span>✦</span>LOTES<span>✦</span>LG IMÓVEIS<span>✦</span>CASAS<span>✦</span>APARTAMENTOS<span>✦</span>LOTES<span>✦</span>LG IMÓVEIS<span>✦</span>CASAS<span>✦</span>APARTAMENTOS<span>✦</span>LOTES<span>✦</span>LG IMÓVEIS<span>✦</span>CASAS<span>✦</span>APARTAMENTOS<span>✦</span>LOTES<span>✦</span>LG IMÓVEIS<span>✦</span>CASAS<span>✦</span>APARTAMENTOS<span>✦</span>LOTES<span>✦</span>LG IMÓVEIS<span>✦</span>CASAS<span>✦</span>APARTAMENTOS<span>✦</span>LOTES<span>✦</span>LG IMÓVEIS<span>✦</span>CASAS<span>✦</span>APARTAMENTOS<span>✦</span>LOTES<span>✦</span>LG IMÓVEIS<span>✦</span></div></div>
+<!-- SÓCIOS -->
+<section class="sec" id="socios" data-nav="socios">
+ <div class="eyebrow rv">QUEM ESTÁ POR TRÁS</div>
+ <h2 class="rv">Três sócios.<br><span class="bl">Uma</span> <span class="pk">missão.</span></h2>
+ <p class="lead rv">Conectando pessoas aos melhores imóveis. Decisões seguras com informações assertivas, do primeiro contato à chave na mão.</p>
+ <div class="sfoto rv"><img class="main" src="socios.webp" alt="Giovanny Gaioso, Lucas Lima e Ícaro Prado, sócios da LG Imóveis"></div>
+ <div class="pers rv">
+  <a class="pc" href="https://wa.me/5586981413636?text=Ol%C3%A1%20Giovanny!%20Vim%20pelo%20site%20da%20LG%20Im%C3%B3veis." target="_blank"><div class="av">G</div><div><h4>Giovanny Gaioso</h4><p>(86) 9.8141-3636</p></div><div class="wa"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.3.3c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.8-.1 1.4z"/></svg></div></a>
+  <a class="pc" href="https://wa.me/5586998290250?text=Ol%C3%A1%20Lucas!%20Vim%20pelo%20site%20da%20LG%20Im%C3%B3veis." target="_blank"><div class="av">L</div><div><h4>Lucas Lima</h4><p>(86) 9.9829-0250 · CRECI-PI 2865</p></div><div class="wa"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.3.3c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.8-.1 1.4z"/></svg></div></a>
+  <a class="pc" href="https://wa.me/5586994976262?text=Ol%C3%A1%20%C3%8Dcaro!%20Vim%20pelo%20site%20da%20LG%20Im%C3%B3veis." target="_blank"><div class="av">Í</div><div><h4>Ícaro Prado</h4><p>(86) 9.9497-6262 · CRECI-PI 3472</p></div><div class="wa"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.3.3c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.8-.1 1.4z"/></svg></div></a>
+ </div>
+ <div class="creci rv">LG IMÓVEIS · CRECI PJ 812-PI</div>
+</section>
+
+<div class="mq r"><div>CONECTANDO PESSOAS AOS MELHORES IMÓVEIS<span>✦</span>CONECTANDO PESSOAS AOS MELHORES IMÓVEIS<span>✦</span>CONECTANDO PESSOAS AOS MELHORES IMÓVEIS<span>✦</span>CONECTANDO PESSOAS AOS MELHORES IMÓVEIS<span>✦</span>CONECTANDO PESSOAS AOS MELHORES IMÓVEIS<span>✦</span>CONECTANDO PESSOAS AOS MELHORES IMÓVEIS<span>✦</span>CONECTANDO PESSOAS AOS MELHORES IMÓVEIS<span>✦</span>CONECTANDO PESSOAS AOS MELHORES IMÓVEIS<span>✦</span></div></div>
+<!-- CASAS -->
+<section id="casas" data-nav="casas">
+ <div class="group-head"><div class="eyebrow">CATÁLOGO</div><h2>Casas <span class="pk">à venda</span></h2><p class="lead" style="padding-bottom:18px">Condomínios fechados e bairros nobres de Teresina e Gurupi.</p></div>
+
+ <article class="card rv" id="c-lavie">
+  <div class="gal"><img src="lavie.jpg" alt="Casa duplex Cond. La Vie Suíça"></div>
+  <div class="badge">DESTAQUE</div>
+  <div class="body">
+   <h3>Casa Duplex · La Vie Suíça</h3><div class="loc">Av. Presidente Kennedy · Teresina</div>
+   <div class="specs"><span>127 m²</span><span>4 suítes</span><span>2 vagas</span><span class="k">Área gourmet</span><span>Portaria 24h</span></div>
+   <p class="desc">1 suíte reversível, churrasqueira, e condomínio com piscina adulto e infantil, salão climatizado, campo, playground e praças.</p>
+   <div class="row"><div class="price"><small>VALOR</small><strong>R$ 800.000</strong></div><a class="btn" href="https://wa.me/5586981413636?text=Ol%C3%A1!%20Tenho%20interesse%20na%20casa%20duplex%20do%20La%20Vie%20Su%C3%AD%C3%A7a." target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.3.3c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.8-.1 1.4z"/></svg>Quero visitar</a></div>
+  </div>
+ </article>
+
+ <article class="card rv" id="c-petro">
+  <div class="gal"><img src="petropolis.jpg" alt="Casa térrea Cond. Petrópolis" style="object-position:center 55%"></div>
+  <div class="badge">ESQUINA</div>
+  <div class="body">
+   <h3>Casa Térrea · Petrópolis</h3><div class="loc">Condomínio Petrópolis · Teresina</div>
+   <div class="specs"><span>129 m² construídos</span><span>264 m² terreno</span><span>3 quartos · 2 suítes</span><span class="k">Área gourmet</span><span>2 vagas</span></div>
+   <p class="desc">Lote de esquina, arquitetura moderna, ambientes integrados e paisagismo valorizando a fachada.</p>
+   <div class="row"><div class="price"><small>VALOR</small><strong>R$ 1.190.000</strong></div><a class="btn" href="https://wa.me/5586994976262?text=Ol%C3%A1%20%C3%8Dcaro!%20Tenho%20interesse%20na%20casa%20do%20Petr%C3%B3polis." target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.3.3c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.8-.1 1.4z"/></svg>Quero visitar</a></div>
+  </div>
+ </article>
+
+ <article class="card rv" id="c-havan">
+  <div class="gal" data-gal><img src="havan.jpg" alt=""><img src="havan2.jpg" alt=""><img src="havan3.jpg" alt=""><img src="havan4.jpg" alt=""><img src="havan5.jpg" alt=""><img src="havan6.jpg" alt=""><img src="havan7.jpg" alt=""><img src="havan8.jpg" alt=""></div>
+  <div class="cnt">1 / 8</div><div class="badge">DESLIZE →</div>
+  <div class="body">
+   <h3>Casa 280 m² · Santa Isabel</h3><div class="loc">Perto da Havan · Teresina</div>
+   <div class="specs"><span>280 m²</span><span>4 suítes</span><span>4 vagas</span><span class="k">Lazer c/ churrasqueira</span><span>3 ambientes integrados</span><span>DCE · canil</span></div>
+   <p class="desc">Região estratégica, ideal para qualidade de vida hoje e patrimônio para o futuro.</p>
+   <div class="row"><div class="price"><small>VALOR</small><strong>R$ 1.000.000</strong></div><a class="btn" href="https://wa.me/5586981413636?text=Ol%C3%A1!%20Tenho%20interesse%20na%20casa%20de%20280%20m%C2%B2%20no%20Santa%20Isabel." target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.3.3c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.8-.1 1.4z"/></svg>Quero visitar</a></div>
+  </div>
+ </article>
+
+ <article class="card rv" id="c-gramado">
+  <div class="gal" data-gal><img src="gramado.jpg" alt="" style="object-position:center 60%"><img src="gramado2.jpg" alt=""></div>
+  <div class="cnt">1 / 2</div><div class="badge">GURUPI</div>
+  <div class="body">
+   <h3>Duplex · Gramado Park</h3><div class="loc">Condomínio · Gurupi</div>
+   <div class="specs"><span>180 m²</span><span>3 suítes</span><span>2 vagas</span><span class="k">Varanda gourmet c/ piscina</span><span>Sala de TV</span></div>
+   <p class="desc">Salas de jantar e estar integradas, cozinha ampla e funcional, área de serviço e banheiro social.</p>
+   <div class="row"><div class="price"><small>VALOR</small><strong>R$ 1.200.000</strong></div><a class="btn" href="https://wa.me/5586994976262?text=Ol%C3%A1%20%C3%8Dcaro!%20Tenho%20interesse%20no%20duplex%20do%20Gramado%20Park." target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.3.3c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.8-.1 1.4z"/></svg>Quero visitar</a></div>
+  </div>
+ </article>
+ <div style="height:40px"></div>
+</section>
+
+<!-- APARTAMENTOS / LANÇAMENTO (vídeo guiado pela rolagem) -->
+<section id="aptos" data-nav="aptos">
+ <div class="group-head"><div class="eyebrow">APARTAMENTOS &amp; LANÇAMENTOS</div><h2>Viva <span class="bl">no alto</span></h2><p class="lead" style="padding-bottom:18px">Role para percorrer o imóvel.</p></div>
+
+ <div class="scrub" data-v="ilhotas.mp4">
+  <div class="pin" style="background-image:url(p_ilhotas.jpg)"><video muted loop autoplay playsinline preload="auto" poster="p_ilhotas.jpg" src="ilhotas.mp4"></video><i class="fo a"></i><i class="fo b"></i>
+   <div class="bar"><i></i></div><div class="t">ILHOTAS · TERESINA</div>
+   <div class="info"><div class="eyebrow">APARTAMENTO À VENDA</div><h3>Ed. Leonor Acevedo</h3>
+    <div class="specs"><span>160 m²</span><span>3 quartos · 1 suíte master</span><span>2 vagas livres</span><span class="k">2 aptos por andar</span><span>Piscina</span><span>DCE</span></div>
+    <div class="row"><div class="price"><small>VALOR · COND. R$ 1.800</small><strong>R$ 700.000</strong></div><a class="btn" href="https://wa.me/5586981413636?text=Ol%C3%A1!%20Tenho%20interesse%20no%20apartamento%20das%20Ilhotas." target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.3.3c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.8-.1 1.4z"/></svg>Quero visitar</a></div></div></div>
+ </div>
+
+ <div class="scrub" data-v="lareserve.mp4">
+  <div class="pin" style="background-image:url(p_lareserve.jpg)"><video muted loop autoplay playsinline preload="auto" poster="p_lareserve.jpg" src="lareserve.mp4"></video><i class="fo a"></i><i class="fo b"></i>
+   <div class="bar"><i></i></div><div class="t">LANÇAMENTO · SHOPPING RIO POTY</div>
+   <div class="info"><div class="eyebrow">TORRE ÚNICA</div><h3>La Reserve</h3>
+    <div class="specs"><span>279 m²</span><span>4 suítes</span><span class="k">2 aptos por andar</span><span>Entrega em 12 meses</span></div>
+    <div class="row"><div class="price"><small>CONDIÇÕES</small><strong>Consulte</strong></div><a class="btn" href="https://wa.me/5586981413636?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20o%20La%20Reserve." target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.3.3c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.8-.1 1.4z"/></svg>Quero saber mais</a></div></div></div>
+ </div>
+</section>
+
+<div class="mq r"><div>LOTES<span>✦</span>EMPREENDIMENTOS<span>✦</span>TERRAS ALPHAVILLE<span>✦</span>RESERVA ALDEBARAN<span>✦</span>LOTES<span>✦</span>EMPREENDIMENTOS<span>✦</span>TERRAS ALPHAVILLE<span>✦</span>RESERVA ALDEBARAN<span>✦</span>LOTES<span>✦</span>EMPREENDIMENTOS<span>✦</span>TERRAS ALPHAVILLE<span>✦</span>RESERVA ALDEBARAN<span>✦</span>LOTES<span>✦</span>EMPREENDIMENTOS<span>✦</span>TERRAS ALPHAVILLE<span>✦</span>RESERVA ALDEBARAN<span>✦</span>LOTES<span>✦</span>EMPREENDIMENTOS<span>✦</span>TERRAS ALPHAVILLE<span>✦</span>RESERVA ALDEBARAN<span>✦</span>LOTES<span>✦</span>EMPREENDIMENTOS<span>✦</span>TERRAS ALPHAVILLE<span>✦</span>RESERVA ALDEBARAN<span>✦</span>LOTES<span>✦</span>EMPREENDIMENTOS<span>✦</span>TERRAS ALPHAVILLE<span>✦</span>RESERVA ALDEBARAN<span>✦</span>LOTES<span>✦</span>EMPREENDIMENTOS<span>✦</span>TERRAS ALPHAVILLE<span>✦</span>RESERVA ALDEBARAN<span>✦</span></div></div>
+<!-- LOTES -->
+<section id="lotes" data-nav="lotes">
+ <div class="group-head"><div class="eyebrow">LOTES &amp; EMPREENDIMENTOS</div><h2>Seu <span class="pk">terreno</span>,<br>seu <span class="bl">projeto</span></h2></div>
+
+ <div class="scrub" data-v="alphaville.mp4">
+  <div class="pin" style="background-image:url(p_alphaville.jpg)"><video muted loop autoplay playsinline preload="auto" poster="p_alphaville.jpg" src="alphaville.mp4"></video><i class="fo a"></i><i class="fo b"></i>
+   <div class="bar"><i></i></div><div class="t">BR-343 · TERESINA</div>
+   <div class="info"><div class="eyebrow">LANÇAMENTO · 2ª FASE</div><h3>Terras Alphaville</h3>
+    <div class="specs"><span>Lotes de 247 a 424 m²</span><span>+480 lotes</span><span class="k">37 hectares</span></div>
+    <div class="row"><div class="price"><small>A PARTIR DE</small><strong>R$ 350.000</strong></div><a class="btn" href="https://wa.me/5586981413636?text=Ol%C3%A1!%20Tenho%20interesse%20nos%20lotes%20do%20Terras%20Alphaville%202." target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.3.3c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.8-.1 1.4z"/></svg>Quero saber mais</a></div></div></div>
+ </div>
+
+ <div class="scrub" data-v="aldebaran.mp4">
+  <div class="pin" style="background-image:url(p_aldebaran.jpg)"><video muted loop autoplay playsinline preload="auto" poster="p_aldebaran.jpg" src="aldebaran.mp4"></video><i class="fo a"></i><i class="fo b"></i>
+   <div class="bar"><i></i></div><div class="t">COLEÇÃO FINAL</div>
+   <div class="info"><div class="eyebrow">ÚNICO E EXCLUSIVO</div><h3>Reserva Aldebaran</h3>
+    <div class="specs"><span class="k">Apenas 238 lotes</span><span>Entrada a partir de 7%</span><span>Até 60x sem juros</span><span>Planos até 120 meses</span></div>
+    <div class="row"><div class="price"><small>OBRAS EM ANDAMENTO</small><strong>Últimos lotes</strong></div><a class="btn" href="https://wa.me/5586981413636?text=Ol%C3%A1!%20Quero%20as%20condi%C3%A7%C3%B5es%20do%20Reserva%20Aldebaran." target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.3.3c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.8-.1 1.4z"/></svg>Ver condições</a></div></div></div>
+ </div>
+
+ <article class="card rv" id="c-verana">
+  <div class="gal"><img src="verana.jpg" alt="Condomínio Verana, lotes C3 e R14" style="height:auto;object-fit:contain"></div>
+  <div class="badge">VERANA</div>
+  <div class="body">
+   <h3>Condomínio Verana</h3><div class="loc">Dois lotes à venda · Teresina</div>
+   <div class="specs"><span class="k">C3 · declive · vista para o lago · R$ 380.000</span><span>R14 · plano · fundo Aldebaran Ville · R$ 390.000</span></div>
+   <div class="row"><div class="price"><small>A PARTIR DE</small><strong>R$ 380.000</strong></div><a class="btn" href="https://wa.me/5586981413636?text=Ol%C3%A1%20Giovanny!%20Tenho%20interesse%20nos%20lotes%20do%20Verana." target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.3.3c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.8-.1 1.4z"/></svg>Quero visitar</a></div>
+  </div>
+ </article>
+ <div style="height:40px"></div>
+</section>
+
+<div class="mq "><div>REALIZAMOS SONHOS<span>✦</span>REALIZAMOS SONHOS<span>✦</span>REALIZAMOS SONHOS<span>✦</span>REALIZAMOS SONHOS<span>✦</span>REALIZAMOS SONHOS<span>✦</span>REALIZAMOS SONHOS<span>✦</span>REALIZAMOS SONHOS<span>✦</span>REALIZAMOS SONHOS<span>✦</span></div></div>
+<!-- CONTATO -->
+<section class="sec" id="contato" data-nav="contato">
+ <div class="eyebrow rv">FALE COM A GENTE</div>
+ <h2 class="rv">Seu próximo<br>capítulo<br><span class="pk">começa</span> <span class="bl">aqui.</span></h2>
+ <p class="lead rv">Escolha um dos sócios e agende sua visita.</p>
+ <div class="rv" style="margin-top:22px">
+  <a class="btn" href="https://wa.me/5586981413636" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.3.3c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.8-.1 1.4z"/></svg>Giovanny Gaioso</a>
+  <a class="btn pk" href="https://wa.me/5586998290250" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.3.3c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.8-.1 1.4z"/></svg>Lucas Lima</a>
+  <a class="btn" href="https://wa.me/5586994976262" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.3.3c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.8-.1 1.4z"/></svg>Ícaro Prado</a>
+ </div>
+ <p class="foot rv"><b>LG Imóveis</b> · Teresina, PI<br>CRECI PJ 812-PI · @lgimoveisthe</p>
+</section>
+
+<script>
+/* ---------- ABERTURA: vitrine rotativa que se monta ---------- */
+const SL=[
+ {img:'lavie.jpg',pos:'center 45%',k:'DUPLEX · CONDOMÍNIO FECHADO',n:'La Vie Suíça',p:'R$ 800 mil',chips:[['ÁREA','127 m²','8%','12%','.5s'],['SUÍTES','4 suítes','52%','58%','1.5s'],['LAZER','Área gourmet','10%','70%','2.4s']]},
+ {img:'petropolis.jpg',pos:'center 55%',k:'CASA TÉRREA · ESQUINA',n:'Petrópolis',p:'R$ 1,19 mi',chips:[['TERRENO','264 m²','8%','10%','.5s'],['QUARTOS','3 · 2 suítes','54%','48%','1.5s'],['VAGAS','2 cobertas','8%','68%','2.4s']]},
+ {img:'gramado.jpg',pos:'center 62%',k:'DUPLEX · GURUPI',n:'Gramado Park',p:'R$ 1,2 mi',chips:[['ÁREA','180 m²','50%','10%','.5s'],['LAZER','Piscina gourmet','6%','52%','1.5s'],['SUÍTES','3 suítes','56%','72%','2.4s']]},
+ {img:'havan.jpg',pos:'center 50%',k:'CASA · SANTA ISABEL',n:'280 m²',p:'R$ 1 mi',chips:[['SUÍTES','4 suítes','8%','12%','.5s'],['VAGAS','4 vagas','56%','45%','1.5s'],['EXTRA','DCE + canil','8%','70%','2.4s']]}
+];
+const stage=document.getElementById('stage'),prog=document.getElementById('prog');
+const tl=document.getElementById('tl'),tn=document.getElementById('tn'),tp=document.getElementById('tp');
+SL.forEach((s,i)=>{
+ const el=document.createElement('div');el.className='slide';
+ el.innerHTML=`<div class="img"><i style="--pos:${s.pos};background-image:url(${s.img})"></i></div>`+
+  s.chips.map(c=>`<div class="chip" style="left:${c[2]};top:${c[3]};--d:${c[4]}">${c[0]}<b>${c[1]}</b></div>`).join('');
+ stage.appendChild(el);
+ const pi=document.createElement('i');prog.appendChild(pi);
+});
+const slides=[...stage.children],pis=[...prog.children];
+let cur=-1,timer;
+function show(i){
+ cur=(i+SL.length)%SL.length;
+ slides.forEach((s,k)=>{s.classList.remove('out');if(s.classList.contains('on')){s.classList.remove('on');s.classList.add('out')}});
+ void stage.offsetWidth;
+ slides[cur].classList.add('on');
+ pis.forEach((p,k)=>{p.className=k<cur?'done':'';});
+ void prog.offsetWidth;pis[cur].classList.add('on');
+ const s=SL[cur];tl.textContent=s.k;tn.textContent=s.n;tp.textContent=s.p;
+ clearTimeout(timer);timer=setTimeout(()=>show(cur+1),6000);
+}
+SL.forEach(s=>{const im=new Image();im.src=s.img;});
+show(0);
+prog.addEventListener('click',e=>{const k=pis.indexOf(e.target.closest('i'));if(k>=0)show(k)});
+
+/* ---------- galerias: contador ---------- */
+document.querySelectorAll('[data-gal]').forEach(g=>{
+ const c=g.parentElement.querySelector('.cnt');const n=g.children.length;
+ g.addEventListener('scroll',()=>{c.textContent=(Math.round(g.scrollLeft/g.clientWidth)+1)+' / '+n},{passive:true});
+});
+
+/* ---------- revelar ao rolar ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv,.group-head').forEach(el=>io.observe(el));
+
+/* ---------- vídeos tocando sozinhos ---------- */
+const scrubs=[...document.querySelectorAll('.scrub')].map(s=>({s,v:s.querySelector('video'),bar:s.querySelector('.bar i')}));
+const vio=new IntersectionObserver(es=>es.forEach(e=>{
+ const o=scrubs.find(x=>x.s===e.target);if(!o)return;
+ if(e.isIntersecting){o.s.classList.add('live');const p=o.v.play();if(p&&p.catch)p.catch(()=>{})}
+ else{o.v.pause()}
+}),{threshold:.35});
+scrubs.forEach(o=>{o.v.muted=true;vio.observe(o.s)});
+function tick(){
+ scrubs.forEach(o=>{if(o.v.duration&&!o.v.paused)o.bar.style.width=(o.v.currentTime/o.v.duration*100)+'%'});
+ requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+addEventListener('touchstart',()=>scrubs.forEach(o=>{if(o.s.classList.contains('live')&&o.v.paused)o.v.play().catch(()=>{})}),{passive:true,once:true});
+
+/* ---------- topo: atalhos + ícone aceso conforme a seção ---------- */
+const links=[...document.querySelectorAll('.top a')];
+const secs=[...document.querySelectorAll('[data-nav]')];
+function setOn(id){links.forEach(a=>a.classList.toggle('on',a.dataset.t===id))}
+function spy(){
+ const y=innerHeight*.35;let cur='inicio';
+ secs.forEach(s=>{if(s.getBoundingClientRect().top<=y)cur=s.dataset.nav});
+ setOn(cur);
+}
+addEventListener('scroll',spy,{passive:true});spy();
+
+/* ---------- movimento extra ---------- */
+// títulos palavra por palavra
+document.querySelectorAll('h2').forEach(h=>{
+ let i=0;
+ const wrap=n=>{[...n.childNodes].forEach(c=>{
+  if(c.nodeType===3){const f=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(t=>{if(!t.trim()){f.appendChild(document.createTextNode(t));return}const sp=document.createElement('span');sp.className='w';sp.style.setProperty('--i',i++);sp.textContent=t;f.appendChild(sp)});c.replaceWith(f)}
+  else if(c.nodeType===1&&c.tagName!=='BR'){wrap(c)}
+ })};wrap(h);
+ const host=h.closest('.group-head')||h;
+ if(!h.classList.contains('rv')){const o=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){h.classList.add('in');o.disconnect()}}),{threshold:.3});o.observe(h)}
+});
+// preços contando
+document.querySelectorAll('.price strong').forEach(el=>{
+ const m=el.textContent.match(/^R\$ ([\d\.]+)$/);if(!m)return;
+ const end=parseInt(m[1].replace(/\./g,''),10);
+ const o=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){o.disconnect();const t0=performance.now();
+  const step=t=>{const k=Math.min(1,(t-t0)/1400),v=Math.round(end*(1-Math.pow(1-k,3)));el.textContent='R$ '+v.toLocaleString('pt-BR');if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)}}),{threshold:.6});o.observe(el);
+});
+// galerias: passam sozinhas + pontinhos
+document.querySelectorAll('.gal').forEach(g=>{
+ const n=g.children.length;if(n<2)return;
+ const card=g.parentElement;const d=document.createElement('div');d.className='dotsg';
+ for(let i=0;i<n;i++)d.appendChild(document.createElement('i'));card.appendChild(d);
+ const upd=()=>{const k=Math.round(g.scrollLeft/g.clientWidth);[...d.children].forEach((x,j)=>x.classList.toggle('on',j===k))};
+ g.addEventListener('scroll',upd,{passive:true});upd();
+ let k=0,user=false;g.addEventListener('touchstart',()=>user=true,{passive:true});
+ setInterval(()=>{if(user){user=false;k=Math.round(g.scrollLeft/g.clientWidth);return}
+  const r=card.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;
+  k=(Math.round(g.scrollLeft/g.clientWidth)+1)%n;g.scrollTo({left:k*g.clientWidth,behavior:'smooth'})},3200);
+});
+// topo: indicador deslizante
+const ind=document.getElementById('ind');
+function moveInd(){const a=document.querySelector('.top a.on');if(!a)return;ind.style.width=a.offsetWidth+'px';ind.style.transform=`translateX(${a.offsetLeft}px)`}
+new MutationObserver(moveInd).observe(document.getElementById('top'),{subtree:true,attributes:true,attributeFilter:['class']});
+addEventListener('resize',moveInd);setTimeout(moveInd,100);
+// parallax
+const hh=document.querySelector('.hero-head'),stg=document.getElementById('stage'),sf=null;
+function par(){
+ const y=scrollY,vh=innerHeight;
+ if(y<vh*1.2){hh.style.transform=`translateY(${y*.25}px)`;hh.style.opacity=Math.max(0,1-y/(vh*.6));stg.style.transform=`translateY(${y*.12}px) scale(${1+y/vh*.06})`}
+ if(sf){const r=sf.parentElement.getBoundingClientRect();const p=(r.top-vh)/(vh+r.height);sf.style.transform=`translateX(-50%) translateY(${(p+.5)*60}px)`}
+ document.querySelectorAll('.card .gal').forEach(g=>{const r=g.getBoundingClientRect();if(r.bottom>0&&r.top<vh){g.style.transform=`translateY(${((r.top-vh/2)/vh)*-14}px)`}});
+ requestAnimationFrame(par);
+}
+requestAnimationFrame(par);
+document.querySelectorAll('.chip').forEach(c=>c.classList.add('chipfloat'));
+</script>
+</body>
+</html>
